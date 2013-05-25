@@ -29,7 +29,9 @@ public class PairedWithServer {
 	    Injector injector = PairedWithServer.initInjector();
 	    PairedWithServer server = injector.getInstance(PairedWithServer.class);
 	    server.injector = injector;
-	    server.startWebserver(DEFAULT_HTTP_PORT);
+	    String portEnvironmentProperty = System.getenv("PORT");
+	    Integer port = (portEnvironmentProperty != null) ? Integer.valueOf(portEnvironmentProperty) : DEFAULT_HTTP_PORT;
+	    server.startWebserver(port);
 	} catch(Exception e) {
 	    LOG.error("Unexpected Exception in main method", e);
 	    throw e;
